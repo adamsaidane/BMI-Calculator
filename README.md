@@ -1,5 +1,4 @@
 # BMI Calculator
-#### Video Demo:  https://www.youtube.com/watch?v=GoaHMWUPaE0
 #### Description:
 A simple website where you can calculate your BMI with the option to create an account  and have access to your BMI history which shows your BMI evolution over time.<br>
 In order to make this website, I used the FLASK framework, CSS, HTML and a bit of JavaScript as well as SQL for the database for the login and registration system.<br>
