@@ -1,7 +1,7 @@
 # BMI Calculator
 #### Description:
 A simple website where you can calculate your BMI with the option to create an account  and have access to your BMI history which shows your BMI evolution over time.<br>
-In order to make this website, I used the FLASK framework, CSS, HTML and a bit of JavaScript as well as SQL for the database for the login and registration system.<br>
+In order to make this website, I used the FLASK framework, CSS, HTML and a bit of JavaScript as well as SQL for the database.<br>
 These are some of the features of the website:<br>
 - **BMI Calculation:** Supports both metric and US measurement systems.
 - **User Authentication:** Users can register, log in, and log out.
