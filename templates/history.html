@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BMI Calculator</title>
+        <link href="/static/styles.css" rel="stylesheet">
+    </head>
+    <nav>
+        <div class="navbar">
+            {% if session["user_id"] %}
+                <div class="navbar-left">
+                    <a href="/">Home</a>
+                    <a href="/history">BMI History</a>
+                </div>
+                <div class="navbar-right">
+                    <a href="/logout">Logout</a>
+                </div>
+            {% else %}
+                <div class="navbar-left">
+                    <a href="/">Home</a>
+                    <a href="/history">BMI History</a>
+                </div>
+                <div class="navbar-right">
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <body>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Weight (Kg)</th>
+                    <th>Height (m)</th>
+                    <th>BMI</th>
+                    <th>Category</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for calculation in history %}
+                    <tr>
+                        <td>{{ calculation.timestamp }}</td>
+                        <td>{{ calculation.weight }}</td>
+                        <td>{{ calculation.height }}</td>
+                        <td>{{ calculation.bmi|round(2) }}</td>
+                        <td>{{ calculation.category}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if history %}
+            <br>
+            <button onclick="window.open('/history_graph', '_blank') " class="center_view_button">View BMI History Graph</button>
+        {% else %}
+            <div class="message-container">
+                <p>There is no history</p>
+            </div>
+        {% endif %}
+    </body>
+
+</html>

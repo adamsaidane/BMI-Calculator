@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BMI Calculator</title>
+        <link href="/static/styles.css" rel="stylesheet">
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('input[name="system"]').forEach(function(elem) {
+                    elem.addEventListener('change', toggleInputs);
+                });
+                toggleInputs();
+            });
+
+            function toggleInputs() {
+                var system = document.querySelector('input[name="system"]:checked').value;
+                var metricInputs = document.getElementById('metric-inputs');
+                var usInputs = document.getElementById('us-inputs');
+
+                if (system === 'metric') {
+                    metricInputs.style.display = 'block';
+                    usInputs.style.display = 'none';
+                    document.getElementById('weight').required = true;
+                    document.getElementById('height').required = true;
+                    document.getElementById('weight_us').required = false;
+                    document.getElementById('height_feet').required = false;
+                    document.getElementById('height_inches').required = false;
+                } else {
+                    metricInputs.style.display = 'none';
+                    usInputs.style.display = 'block';
+                    document.getElementById('weight').required = false;
+                    document.getElementById('height').required = false;
+                    document.getElementById('weight_us').required = true;
+                    document.getElementById('height_feet').required = true;
+                    document.getElementById('height_inches').required = true;
+                }
+            }
+        </script>
+    </head>
+    <nav>
+        <div class="navbar">
+            {% if session["user_id"] %}
+                <div class="navbar-left">
+                    <a href="/">Home</a>
+                    <a href="/history">BMI History</a>
+                </div>
+                <div class="navbar-right">
+                    <a href="/logout">Logout</a>
+                </div>
+            {% else %}
+                <div class="navbar-left">
+                    <a href="/">Home</a>
+                    <a href="/history">BMI History</a>
+                </div>
+                <div class="navbar-right">
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <body>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="card-title text-center mb-4">BMI Calculator</h1>
+                            <form method="POST">
+                                <div class="mb-3 text-center form-group">
+                                    <label>Select Measurement System:</label><br>
+                                    <input type="radio" id="metric" name="system" value="metric" checked>
+                                    <label for="metric">Metric (kg, cm)</label><br>
+                                    <input type="radio" id="us" name="system" value="us">
+                                    <label for="us">US (lbs, feet, inches)</label>
+                                </div>
+                                <div class="mb-3 text-center">
+                                    <div id="metric-inputs">
+                                        <div class="form-group">
+                                            <label for="weight">Weight (kg):</label><br>
+                                            <input type="number" id="weight" name="weight" step="0.01" required><br>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="height">Height (cm):</label><br>
+                                            <input type="number" id="height" name="height" required><br>
+                                        </div>
+                                    </div>
+                                    <div id="us-inputs" style="display: none;">
+                                        <div class="form-group">
+                                            <label for="weight_us">Weight (lbs):</label><br>
+                                            <input type="number" id="weight_us" name="weight_us"><br>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="height_feet">Height (feet):</label><br>
+                                            <input type="number" id="height_feet" name="height_feet"><br>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="height_inches">Height (inches):</label><br>
+                                            <input type="number" id="height_inches" name="height_inches"><br>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">Calculate BMI</button>
+                                </form>
+                                {% if error %}
+                                    <div id="error" style="color: red;">
+                                        <p>{{ error }}</p>
+                                    </div>
+                                {% endif %}
+                                {% if bmi is not none %}
+                                    <div id="result" class="result {{ category|lower }}">
+                                        <h3>Result</h3>
+                                        <p>Your BMI is <strong>{{ bmi|round(2) }}</strong></p>
+                                        <p>This is considered <strong>{{ category }}</strong></p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+
+    </html>
