@@ -11,8 +11,6 @@ These are some of the features of the website:<br>
 - **Graphical Representation:** BMI history is displayed in a line graph with date labels shown diagonally for better readability.
 - **Dynamic Backgrounds:** The background color of the BMI graph changes based on the BMI values.
 
-The app.py file contains the back-end work of the website where i wrote the login,registration,index functions and the bmi history graph function that puts every calculation in a graph.<br>
-
 The index.html page is the main page that works as a guest account where you can just make a quick calculation and the have the result displayed in a box with its background color changes for each category (blue for underweight, green for healthy, yellow for overweight, red for obese and dark red for extremely obese) and if the user is logged in it adds the height, weight, bmi, category, and timestamp to the database.<br>
 
 The register.html asks the user to enter his username ,email adress, password, the password confirmation and a valid birth date where the register function checks that each input is a valid one and that the confirmation matches the password and then add these information to the database.the password is changed to a hashed password for more security if the username already exists the website displays an error message saying that, if the confirmation and password do not match the website displays an error message saying that. <br>
@@ -24,6 +22,6 @@ The history.html displays to the user every calculation made with his account in
 The history_graph.html displays to the user a graph showing each calculation and in which category each BMI score falls in using the same coloring system.<br>
 
 The bmi.db contains two schemas:
-- **Users table:** contains id (an integer a primary key autoincrement not null), username (text not null), email (text not null), username (text not null), birth_date (text )
-- **BMI history table:** contains id (an integer a primary key autoincrement not null), user_id (integer not null), bmi (real not null), weight (real not null), height (real not null), category (text not null), timestamp(datetime deafault current_timestamp)
+- **Users table:** contains id, username, email, username, birth_date.
+- **BMI history table:** contains id, user_id, bmi, weight, height, category, timestamp.
 
